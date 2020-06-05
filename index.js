@@ -69,7 +69,6 @@ app.get('/api/persons',(req,res)=>{
 app.post('/api/persons',(req,res)=>{
     const person=req.body;
 
-    
     if (!person.name) {
         return res.status(400).json({ 
             error: 'name missing' 
@@ -81,17 +80,15 @@ app.post('/api/persons',(req,res)=>{
             error: 'number missing' 
         })
     }
-    
-    if (persons.find(data=>data.name===person.name)) {
-        return res.status(400).json({ 
-            error: 'name already exists' 
-        })
-    }
 
-    const id=Math.floor(Math.random() * 100); 
-    person.id=id;
-    persons=persons.concat(person);
-    res.json(persons);
+    const personDb=new Person({
+        name:person.name,
+        number:person.number
+    });
+
+    personDb.save().then(savedPerson =>{
+        res.json(savedPerson);
+    })
 });
 
 app.get('/api/persons/:id',(req,res)=>{
