@@ -4,6 +4,7 @@
   "description": "Repository for Fullstack course exercises using Node.js",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run build",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
